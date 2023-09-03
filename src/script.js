@@ -12,6 +12,9 @@ import portalFragmentShader from "./shaders/portal/fragment.glsl";
 
 THREE.ColorManagement.enabled = true;
 
+const cameraDistance = window.innerWidth > 600 ? 5 : 8;
+const guiSize = window.innerWidth > 600 ? 400 : 250;
+
 /**
  * Base
  */
@@ -19,12 +22,15 @@ THREE.ColorManagement.enabled = true;
 const debugObject = {};
 // debugObject.clearColor = "#ff0000";
 debugObject.clearColor = "#201919";
-debugObject.doubleSide = false;
 debugObject.portalColorStart = "#000000";
 debugObject.portalColorEnd = "#ffffff";
 
+// improve the performance by create the seperate mesh for the ground(plane)
+// then only set the double side to that specific mesh
+debugObject.doubleSide = THREE.DoubleSide;
+
 const gui = new dat.GUI({
-  width: 400,
+  width: guiSize,
 });
 gui.close();
 
@@ -62,7 +68,7 @@ bakedTexture.colorSpace = THREE.SRGBColorSpace;
 // Baked Materials
 const bakedMaterial = new THREE.MeshBasicMaterial({
   map: bakedTexture,
-  side: null,
+  side: debugObject.doubleSide,
 });
 
 gui
@@ -217,7 +223,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 camera.position.x = 4;
 camera.position.y = 2;
-camera.position.z = 4;
+camera.position.z = cameraDistance;
 scene.add(camera);
 
 // Controls
