@@ -37,6 +37,7 @@ const scene = new THREE.Scene();
 /**
  * Loaders
  */
+
 // Texture loader
 const textureLoader = new THREE.TextureLoader();
 
