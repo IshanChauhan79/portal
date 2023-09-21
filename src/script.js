@@ -27,7 +27,7 @@ debugObject.portalColorEnd = "#ffffff";
 
 // improve the performance by create the seperate mesh for the ground(plane)
 // then only set the double side to that specific mesh
-debugObject.doubleSide = THREE.DoubleSide;
+debugObject.doubleSide = true;
 
 const gui = new dat.GUI({
   width: guiSize,
@@ -69,6 +69,7 @@ bakedTexture.colorSpace = THREE.SRGBColorSpace;
 const bakedMaterial = new THREE.MeshBasicMaterial({
   map: bakedTexture,
   side: debugObject.doubleSide,
+  side: THREE.DoubleSide,
 });
 
 gui
